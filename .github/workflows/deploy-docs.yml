@@ -19,6 +19,8 @@ concurrency:
 
 jobs:
   build:
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -42,6 +44,8 @@ jobs:
         with:
           path: hindsight-docs/build
   deploy:
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

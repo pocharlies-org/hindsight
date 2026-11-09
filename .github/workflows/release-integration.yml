@@ -7,6 +7,8 @@ on:
 
 jobs:
   publish:
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight'
     runs-on: ubuntu-latest
     permissions:
       id-token: write  # for PyPI trusted publishing + build-provenance attestations

@@ -22,6 +22,8 @@ permissions:
 
 jobs:
   scan-published:
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight'
     name: Scan published ${{ matrix.image }} (${{ matrix.platform }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -50,6 +52,8 @@ jobs:
         TRIVY_PLATFORM: ${{ matrix.platform }}
 
   scan-next-build:
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight'
     name: Scan a fresh build of main (${{ matrix.target }})
     runs-on: ubuntu-latest
     timeout-minutes: 45
