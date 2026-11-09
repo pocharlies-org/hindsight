@@ -11,6 +11,8 @@ concurrency:
 
 jobs:
   detect-changes:
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -297,10 +299,13 @@ jobs:
   # never hits that class of failure.
   check-integration-lockfiles:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-lockfiles == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -321,10 +326,13 @@ jobs:
     # construction, so without this such a call runs fine until the value is used, which can be
     # in another process entirely.
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -358,10 +366,13 @@ jobs:
 
   build-api-python-versions:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
@@ -411,10 +422,13 @@ jobs:
 
   build-typescript-client:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -438,10 +452,13 @@ jobs:
 
   build-hindsight-all-npm:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.all-npm == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -468,12 +485,15 @@ jobs:
 
   build-openclaw-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-openclaw == 'true' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.all-npm == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -522,12 +542,15 @@ jobs:
 
   smoke-openclaw-install:
     needs: [detect-changes, build-openclaw-integration]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-openclaw == 'true' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.all-npm == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -584,10 +607,13 @@ jobs:
 
   test-coding-agents:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-coding-agents == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -620,11 +646,14 @@ jobs:
 
   test-cursor-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-cursor == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -646,11 +675,14 @@ jobs:
 
   test-zed-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-zed == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -672,10 +704,13 @@ jobs:
 
   test-omo-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-omo == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -698,10 +733,13 @@ jobs:
 
   test-github-copilot-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-github-copilot == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -737,10 +775,13 @@ jobs:
 
   test-agent-plugin-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-agent-plugin == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -760,10 +801,13 @@ jobs:
 
   build-ai-sdk-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-ai-sdk == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -791,10 +835,13 @@ jobs:
 
   test-ai-sdk-integration-deno:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-ai-sdk == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -823,10 +870,13 @@ jobs:
 
   build-eliza-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-eliza == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -854,10 +904,13 @@ jobs:
 
   test-eve-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-eve == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -885,10 +938,13 @@ jobs:
 
   test-n8n-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-n8n == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -916,10 +972,13 @@ jobs:
 
   test-zapier-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-zapier == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -947,10 +1006,13 @@ jobs:
 
   test-cloudflare-oauth-proxy-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-cloudflare-oauth-proxy == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -978,10 +1040,13 @@ jobs:
 
   build-chat-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-chat == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1009,10 +1074,13 @@ jobs:
 
   test-paperclip-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-paperclip == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1040,10 +1108,13 @@ jobs:
 
   test-pipecat-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-pipecat == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1077,10 +1148,13 @@ jobs:
 
   test-google-adk-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-google-adk == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1114,10 +1188,13 @@ jobs:
 
   test-gemini-spark-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-gemini-spark == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1147,10 +1224,13 @@ jobs:
 
   test-meta-muse-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-meta-muse == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1180,10 +1260,13 @@ jobs:
 
   test-grok-bot-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-grok-bot == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1207,11 +1290,14 @@ jobs:
 
   test-roo-code-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-roo-code == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1245,11 +1331,14 @@ jobs:
 
   build-control-plane:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.control-plane == 'true' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1312,7 +1401,8 @@ jobs:
 
   test-figures:
     needs: [detect-changes]
-    if: needs.detect-changes.outputs.figures == 'true'
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight' && (needs.detect-changes.outputs.figures == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -1348,7 +1438,8 @@ jobs:
     # serializing two full Docusaurus builds in the generated-files check.
     # The one exception is a PR that touches only hindsight-system-tests/,
     # which the docs site cannot read from — see the filter of the same name.
-    if: needs.detect-changes.outputs.outside-system-tests == 'true'
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight' && (needs.detect-changes.outputs.outside-system-tests == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1383,12 +1474,15 @@ jobs:
 
   test-rust-cli:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.cli == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -1537,10 +1631,13 @@ jobs:
 
   lint-helm-chart:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.helm == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1612,10 +1709,13 @@ jobs:
 
   test-standalone-start-script:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.docker == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -1629,13 +1729,16 @@ jobs:
 
   build-docker-images:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.docker == 'true' ||
       needs.detect-changes.outputs.control-plane == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     name: Build Docker (${{ matrix.name }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -1735,11 +1838,14 @@ jobs:
 
   test-api:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # Sharded with pytest-split. Splits the ~19-min pytest run across 3
@@ -1861,11 +1967,14 @@ jobs:
 
   test-api-llm-core:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     name: Core LLM tests
@@ -1952,12 +2061,15 @@ jobs:
 
   test-api-llm-acceptance:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       ((github.event_name == 'pull_request_review' && github.event.review.state == 'approved') ||
       github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
@@ -2059,12 +2171,15 @@ jobs:
     needs: [detect-changes]
     # Gated behind the "oracle-tests" PR label so it doesn't run by default.
     # Add the label to any PR that needs Oracle validation.
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       contains(github.event.pull_request.labels.*.name, 'oracle-tests') &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -2200,12 +2315,15 @@ jobs:
 
   test-python-client:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-python == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -2312,12 +2430,15 @@ jobs:
 
   test-typescript-client:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -2442,12 +2563,15 @@ jobs:
   # -----------------------------------------------------------------
   test-python-client-oracle:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-python == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -2623,12 +2747,15 @@ jobs:
 
   test-typescript-client-oracle:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -2804,12 +2931,15 @@ jobs:
 
   test-typescript-client-deno:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -2927,10 +3057,13 @@ jobs:
 
   build-rust-cli-arm64:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.cli == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 30
 
@@ -2959,12 +3092,15 @@ jobs:
 
   test-rust-client:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-rust == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -3075,12 +3211,15 @@ jobs:
 
   test-go-client:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-go == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -3189,13 +3328,16 @@ jobs:
 
   test-openclaw-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.integrations-openclaw == 'true' ||
       needs.detect-changes.outputs.embed == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -3320,12 +3462,15 @@ jobs:
 
   test-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.integration-tests == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -3431,12 +3576,15 @@ jobs:
     # that implements the OpenAI chat-completions/embeddings APIs and a
     # Cohere-compatible rerank endpoint, so it needs no provider credentials — and
     # therefore runs on fork PRs, which skip every secret-gated test-api job.
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.system-tests == 'true' ||
       needs.detect-changes.outputs.extensions-bank-llm-routing == 'true' ||
       needs.detect-changes.outputs.ci == 'true'
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 20
     name: test-system (blackbox)
@@ -3474,10 +3622,13 @@ jobs:
 
   test-ag2-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-ag2 == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3511,10 +3662,13 @@ jobs:
 
   test-aider-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-aider == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3550,10 +3704,13 @@ jobs:
 
   test-autogen-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-autogen == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3589,10 +3746,13 @@ jobs:
 
   test-composio-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-composio == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3632,10 +3792,13 @@ jobs:
 
   test-continue-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-continue == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3671,10 +3834,13 @@ jobs:
 
   test-smolagents-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-smolagents == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3708,11 +3874,14 @@ jobs:
 
   test-dify-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-dify == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3743,11 +3912,14 @@ jobs:
 
   test-flowise-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-flowise == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -3774,11 +3946,14 @@ jobs:
 
   test-obsidian-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-obsidian == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -3809,10 +3984,13 @@ jobs:
 
   test-agent-framework-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-agent-framework == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3852,11 +4030,14 @@ jobs:
 
   test-extension-supabase-tenant:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.extensions-supabase-tenant == 'true' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3899,11 +4080,14 @@ jobs:
 
   test-extension-static-keys-tenant:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.extensions-static-keys-tenant == 'true' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3946,11 +4130,14 @@ jobs:
 
   test-extension-bank-llm-routing:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.extensions-bank-llm-routing == 'true' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -3987,10 +4174,13 @@ jobs:
 
   test-crewai-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-crewai == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4024,11 +4214,14 @@ jobs:
 
   test-vapi-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-vapi == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4062,11 +4255,14 @@ jobs:
 
   test-superagent-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-superagent == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -4101,10 +4297,13 @@ jobs:
 
   test-litellm-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-litellm == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4140,10 +4339,13 @@ jobs:
 
   test-pydantic-ai-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-pydantic-ai == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4177,10 +4379,13 @@ jobs:
 
   test-hermes-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-hermes == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4210,10 +4415,13 @@ jobs:
 
   test-langgraph-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-langgraph == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4249,10 +4457,13 @@ jobs:
 
   test-llamaindex-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-llamaindex == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4288,11 +4499,14 @@ jobs:
 
   test-haystack-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name != 'pull_request_review' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-haystack == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -4327,10 +4541,13 @@ jobs:
 
   test-openai-agents-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-openai-agents == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4366,10 +4583,13 @@ jobs:
 
   test-openhands-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-openhands == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4405,10 +4625,13 @@ jobs:
 
   test-devin-desktop-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-devin-desktop == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4444,10 +4667,13 @@ jobs:
 
   test-claude-agent-sdk-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-claude-agent-sdk == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -4482,10 +4708,13 @@ jobs:
 
   test-agentcore-integration:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-agentcore == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -4519,11 +4748,14 @@ jobs:
 
   test-pip-slim:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -4595,10 +4827,13 @@ jobs:
     # bundle is a real, wired Vite build (index.html references JS/CSS that exist),
     # and (2) the source still builds cleanly.
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.embed == 'true' ||
       needs.detect-changes.outputs.ci == 'true'
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -4631,12 +4866,15 @@ jobs:
 
   test-embed:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.embed == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -4699,12 +4937,15 @@ jobs:
     # users who install via `uv pip install hindsight-all` on Windows
     # (closes #1240).
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.embed == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: windows-latest
     timeout-minutes: 30
     env:
@@ -4890,10 +5131,13 @@ jobs:
   # is empty there and the script skips exactly that, reporting that it did.
   test-hermes-compat:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.integrations-hermes == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:
@@ -4942,12 +5186,15 @@ jobs:
 
   test-hindsight-all:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.hindsight-all == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -5033,7 +5280,9 @@ jobs:
 
   test-doc-examples:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
@@ -5043,6 +5292,7 @@ jobs:
       needs.detect-changes.outputs.cli == 'true' ||
       needs.detect-changes.outputs.doc-examples == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
@@ -5186,12 +5436,15 @@ jobs:
 
   test-upgrade:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       needs.detect-changes.outputs.has_secrets == 'true' &&
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.dev == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -5282,11 +5535,14 @@ jobs:
   #   component surface, so these are surfaced in the step summary, not gated.
   check-unused-code:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.control-plane == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -5329,7 +5585,8 @@ jobs:
     # Unconditional for every change except one confined to
     # hindsight-system-tests/ — no generated file in the repo is produced from
     # that package, so it cannot drift them. See the outside-system-tests filter.
-    if: needs.detect-changes.outputs.outside-system-tests == 'true'
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight' && (needs.detect-changes.outputs.outside-system-tests == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -5414,10 +5671,13 @@ jobs:
 
   check-openapi-compatibility:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -5479,12 +5739,15 @@ jobs:
 
   check-cli-coverage:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.cli == 'true' ||
       needs.detect-changes.outputs.dev == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -5519,13 +5782,16 @@ jobs:
   # from neither. See #4029.
   check-client-coverage:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.clients-ts == 'true' ||
       needs.detect-changes.outputs.clients-python == 'true' ||
       needs.detect-changes.outputs.dev == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -5558,11 +5824,14 @@ jobs:
   # benchmark hours later instead of on the PR that introduced it.
   test-dev:
     needs: [detect-changes]
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
     if: >-
+      github.repository == 'vectorize-io/hindsight' && (
       (github.event_name == 'workflow_dispatch' ||
       needs.detect-changes.outputs.core == 'true' ||
       needs.detect-changes.outputs.dev == 'true' ||
       needs.detect-changes.outputs.ci == 'true')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -5592,7 +5861,8 @@ jobs:
   # GitHub does not automatically link pull_request_review check runs to the PR,
   # so we create a commit status on the PR head SHA and post a comment.
   report-pr-status:
-    if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && always()
+    # INFRA-1218: job del upstream vectorize-io/hindsight; queda skipped en el fork
+    if: github.repository == 'vectorize-io/hindsight' && (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && always())
     needs:
       - detect-changes
       - check-integration-lockfiles
